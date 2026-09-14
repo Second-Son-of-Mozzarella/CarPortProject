@@ -1,7 +1,13 @@
 using CarPort.Api.Data;
 using Microsoft.EntityFrameworkCore;
+using NLog;
 using NLog.Web;
 
+var logger = NLog.LogManager
+    .Setup()
+    .LoadConfigurationFromFile("nlog.config")
+    .GetCurrentClassLogger();
+    
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -23,6 +29,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+builder.Logging.ClearProviders();
+builder.Host.UseNLog();
 
 app.UseHttpsRedirection();
 
