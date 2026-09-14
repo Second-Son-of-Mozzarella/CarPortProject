@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TDB6WzVEqNE=",
+  "dgSpecHash": "ic3c0d4C6UI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\carport.api\\CarPort.Api.csproj",
+  "projectFilePath": "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\CarPort.Api\\CarPort.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\elija\\.nuget\\packages\\azure.core\\1.41.0\\azure.core.1.41.0.nupkg.sha512",
     "C:\\Users\\elija\\.nuget\\packages\\azure.identity\\1.12.1\\azure.identity.1.12.1.nupkg.sha512",

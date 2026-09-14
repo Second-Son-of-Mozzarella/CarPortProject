@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\carport.api\\CarPort.Api.csproj": {}
+    "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\CarPort.Api\\CarPort.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\carport.api\\CarPort.Api.csproj": {
+    "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\CarPort.Api\\CarPort.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\carport.api\\CarPort.Api.csproj",
+        "projectUniqueName": "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\CarPort.Api\\CarPort.Api.csproj",
         "projectName": "CarPort.Api",
-        "projectPath": "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\carport.api\\CarPort.Api.csproj",
+        "projectPath": "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\CarPort.Api\\CarPort.Api.csproj",
         "packagesPath": "C:\\Users\\elija\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\carport.api\\obj\\",
+        "outputPath": "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\CarPort.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\elija\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -60,6 +60,10 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.*, )"
+            },
+            "NLog": {
+              "target": "Package",
+              "version": "[6.2.0, )"
             },
             "NLog.Extensions.Logging": {
               "target": "Package",

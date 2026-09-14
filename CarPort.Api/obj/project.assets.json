@@ -4503,6 +4503,7 @@
       "Microsoft.AspNetCore.OpenApi >= 8.0.31",
       "Microsoft.EntityFrameworkCore.Design >= 8.*",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.*",
+      "NLog >= 6.2.0",
       "NLog.Extensions.Logging >= 6.2.0",
       "NLog.Web.AspNetCore >= 5.*",
       "Swashbuckle.AspNetCore >= 10.2.3"
@@ -4514,11 +4515,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\carport.api\\CarPort.Api.csproj",
+      "projectUniqueName": "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\CarPort.api\\CarPort.Api.csproj",
       "projectName": "CarPort.Api",
-      "projectPath": "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\carport.api\\CarPort.Api.csproj",
+      "projectPath": "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\CarPort.api\\CarPort.Api.csproj",
       "packagesPath": "C:\\Users\\elija\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\carport.api\\obj\\",
+      "outputPath": "C:\\Users\\elija\\OneDrive\\Documents\\CarPort\\CarPort.api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\elija\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -4567,6 +4568,10 @@
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
             "version": "[8.*, )"
+          },
+          "NLog": {
+            "target": "Package",
+            "version": "[6.2.0, )"
           },
           "NLog.Extensions.Logging": {
             "target": "Package",
