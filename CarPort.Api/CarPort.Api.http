@@ -1,0 +1,6 @@
+@CarPort.Api_HostAddress = http://localhost:5005
+
+GET {{CarPort.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

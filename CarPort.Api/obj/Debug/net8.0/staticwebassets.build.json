@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "KoFYyU1PIAQcEsepUYaGZHUpae1P7hysiCf0cLSAFB0=",
+  "Source": "CarPort.Api",
+  "BasePath": "_content/CarPort.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
