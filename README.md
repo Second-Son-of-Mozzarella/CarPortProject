@@ -175,7 +175,7 @@ Current priorities:
 * [ ] Establish SQL Server connection
 * [ ] Create initial migration
 * [ ] Implement initial API endpoints
-* [ ] Configure NLog
+* [x] Configure NLog
 * [ ] Configure Swagger/OpenAPI
 * [ ] Add validation
 * [ ] Add automated testing
