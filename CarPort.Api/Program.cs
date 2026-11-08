@@ -31,12 +31,18 @@ if (app.Environment.IsDevelopment())
 }
 
 
+ builder = WebApplication.CreateBuilder(args);
+
+// Configure logging BEFORE building
 builder.Logging.ClearProviders();
-builder.Host.UseNLog();
 
-app.UseHttpsRedirection();
+// Register services
+builder.Services.AddControllers();
 
-// Controllers mapping
+// Build the application
+ app = builder.Build();
+
+// Configure middleware and endpoints
 app.MapControllers();
 
 app.Run();

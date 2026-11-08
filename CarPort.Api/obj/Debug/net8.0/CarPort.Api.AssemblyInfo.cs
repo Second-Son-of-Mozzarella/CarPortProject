@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CarPort.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d6801c004b992b0cacc1211bd6d8ef9787f8244")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c449dc022f6127fae0c055d3ab7b338bd7e5092f")]
 [assembly: System.Reflection.AssemblyProductAttribute("CarPort.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CarPort.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
