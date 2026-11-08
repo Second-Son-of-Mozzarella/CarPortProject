@@ -1,0 +1,262 @@
+CREATE TABLE `Group` (
+    GroupID INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(255) NOT NULL,
+    CONSTRAINT PK_Group PRIMARY KEY (GroupID),
+    CONSTRAINT UQ_Group_Name UNIQUE (Name)
+);
+
+CREATE TABLE Maker (
+    MakerID INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(255) NOT NULL,
+    GroupID INT NOT NULL,
+    CONSTRAINT PK_Maker PRIMARY KEY (MakerID),
+    CONSTRAINT FK_Maker_Group
+        FOREIGN KEY (GroupID) REFERENCES `Group` (GroupID),
+    CONSTRAINT UQ_Maker_Group_Name UNIQUE (GroupID, Name)
+);
+
+CREATE TABLE Model (
+    ModelID INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(255) NOT NULL,
+    Body VARCHAR(50) NOT NULL,
+    CONSTRAINT PK_Model PRIMARY KEY (ModelID),
+    CONSTRAINT UQ_Model_Name_Body UNIQUE (Name, Body)
+);
+
+CREATE TABLE MakerModel (
+    MakerID INT NOT NULL,
+    ModelID INT NOT NULL,
+    CONSTRAINT PK_MakerModel PRIMARY KEY (MakerID, ModelID),
+    CONSTRAINT FK_MakerModel_Maker
+        FOREIGN KEY (MakerID) REFERENCES Maker (MakerID),
+    CONSTRAINT FK_MakerModel_Model
+        FOREIGN KEY (ModelID) REFERENCES Model (ModelID)
+);
+
+CREATE TABLE Vehicle (
+    VIN VARCHAR(17) NOT NULL,
+    Year VARCHAR(7) NOT NULL,
+    Transmission VARCHAR(50) NOT NULL,
+    Trim VARCHAR(255),
+    `Condition` TINYINT,
+    MMR DECIMAL(10,2),
+    InColour VARCHAR(50),
+    ExColour VARCHAR(50),
+    ModelID INT NOT NULL,
+    CONSTRAINT PK_Vehicle PRIMARY KEY (VIN),
+    CONSTRAINT FK_Vehicle_Model
+        FOREIGN KEY (ModelID) REFERENCES Model (ModelID),
+    CONSTRAINT CK_Vehicle_Condition
+        CHECK (`Condition` IS NULL OR `Condition` BETWEEN 1 AND 50),
+    CONSTRAINT CK_Vehicle_MMR
+        CHECK (MMR IS NULL OR MMR >= 0),
+    CONSTRAINT CK_Vehicle_Transmission
+        CHECK (Transmission IN ('Manual', 'Automatic'))
+);
+
+CREATE TABLE Seller (
+    SellerID INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(255) NOT NULL,
+    CONSTRAINT PK_Seller PRIMARY KEY (SellerID)
+);
+
+CREATE TABLE Country (
+    CountryID INT NOT NULL,
+    Name VARCHAR(255) NOT NULL,
+    Region VARCHAR(255),
+    CONSTRAINT PK_Country PRIMARY KEY (CountryID),
+    CONSTRAINT UQ_Country_Name UNIQUE (Name),
+    CONSTRAINT CK_Country_ID CHECK (CountryID BETWEEN 1 AND 195)
+);
+
+CREATE TABLE Locality (
+    LocalID INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(255) NOT NULL,
+    CountryID INT NOT NULL,
+    CONSTRAINT PK_Locality PRIMARY KEY (LocalID),
+    CONSTRAINT FK_Locality_Country
+        FOREIGN KEY (CountryID) REFERENCES Country (CountryID),
+    CONSTRAINT UQ_Locality_Country_Name UNIQUE (CountryID, Name)
+);
+
+CREATE TABLE Sale (
+    SaleID INT NOT NULL AUTO_INCREMENT,
+    SaleDate DATETIME NOT NULL,
+    SalePrice DECIMAL(10,2) NOT NULL,
+    VIN VARCHAR(17) NOT NULL,
+    LocalID INT NOT NULL,
+    CONSTRAINT PK_Sale PRIMARY KEY (SaleID),
+    CONSTRAINT FK_Sale_Vehicle
+        FOREIGN KEY (VIN) REFERENCES Vehicle (VIN),
+    CONSTRAINT FK_Sale_Locality
+        FOREIGN KEY (LocalID) REFERENCES Locality (LocalID),
+    CONSTRAINT CK_Sale_Price CHECK (SalePrice >= 0)
+);
+
+CREATE TABLE SaleSeller (
+    SaleID INT NOT NULL,
+    SellerID INT NOT NULL,
+    CONSTRAINT PK_SaleSeller PRIMARY KEY (SaleID, SellerID),
+    CONSTRAINT FK_SaleSeller_Sale
+        FOREIGN KEY (SaleID) REFERENCES Sale (SaleID),
+    CONSTRAINT FK_SaleSeller_Seller
+        FOREIGN KEY (SellerID) REFERENCES Seller (SellerID)
+);
+
+
+LOAD DATA LOCAL INFILE 'C:/Users/elija/Downloads/Data/Group.csv'
+INTO TABLE `Group`
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS
+(GroupID, Name);
+
+LOAD DATA LOCAL INFILE 'C:/Users/elija/Downloads/Data/Country.csv'
+INTO TABLE `Country`
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS
+(CountryID,Name,Region);
+
+LOAD DATA LOCAL INFILE 'C:/Users/elija/Downloads/Data/Maker.csv'
+INTO TABLE `Maker`
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS
+(MakerID,Name,GroupID);
+
+LOAD DATA LOCAL INFILE 'C:/Users/elija/Downloads/Data/Model.csv'
+INTO TABLE `Model`
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS
+(ModelID,Name,Body);
+
+LOAD DATA LOCAL INFILE 'C:/Users/elija/Downloads/Data/MakerModel.csv'
+INTO TABLE `MakerModel`
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS
+(MakerID,ModelID);
+
+LOAD DATA LOCAL INFILE 'C:/Users/elija/Downloads/Data/Seller.csv'
+INTO TABLE `Seller`
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS
+(SellerID,Name);
+
+LOAD DATA LOCAL INFILE 'C:/Users/elija/Downloads/Data/Locality.csv'
+INTO TABLE `Locality`
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS
+(LocalID,Name,CountryID);
+
+
+LOAD DATA LOCAL INFILE 'C:/Users/elija/Downloads/Data/Vehicle.csv'
+INTO TABLE `Vehicle`
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS
+(
+    `VIN`,
+    `Year`,
+    `Transmission`,
+    `Trim`,
+    `Condition`,
+    `MMR`,
+    `InColour`,
+    `ExColour`,
+    `ModelID`
+);
+
+LOAD DATA LOCAL INFILE 'C:/Users/elija/Downloads/Data/Sale.csv'
+INTO TABLE `Sale`
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS
+(SaleID,SaleDate,SalePrice,VIN,LocalID);
+
+LOAD DATA LOCAL INFILE 'C:/Users/elija/Downloads/Data/SaleSeller.csv'
+INTO TABLE `SaleSeller`
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS
+(SaleID,SellerID);
+
+SELECT SUM(TABLE_ROWS) 
+FROM INFORMATION_SCHEMA.TABLES 
+WHERE TABLE_SCHEMA = 'Vehicle_Sales';
+
+
+Test Cases:
+
+-- Most popular Vehicle Manufacture
+
+SELECT DISTINCT mk.`Name` AS 'Maker', COUNT(s.`SaleID`) as 'Sales' 
+FROM MAKER mk 
+JOIN `MakerModel` mm ON mk.`MakerID` = mm.`MakerID`
+JOIN `Model` md ON mm.`ModelID` = md.`ModelID`
+JOIN `Vehicle` v ON md.`ModelID` = v.`ModelID`
+JOIN `Sale` s ON v.`VIN` = s.`VIN`
+GROUP BY mk.`MakerID`, mk.`Name`
+ORDER BY COUNT(s.`SaleID`) DESC;
+
+
+-- Most Expensive Sales
+
+SELECT mk.`Name` AS 'Maker', md.`Name` AS 'Model', v.`Year`, s.`SalePrice`
+FROM `Maker` mk
+JOIN `MakerModel` mm ON mk.`MakerID` = mm.`MakerID`
+JOIN `Model` md ON mm.`ModelID` = md.`ModelID`
+JOIN `Vehicle` v ON md.`ModelID` = v.`ModelID`
+JOIN `Sale` s ON v.`VIN` = s.`VIN`
+ORDER BY s.`SalePrice` DESC
+LIMIT 10;
+
+-- Avg selling price by manufacuture
+
+SELECT DISTINCT mk.`Name` AS 'Maker', CONCAT('$', FORMAT(AVG(s.`SalePrice`), 2)) AS 'Average Sale' 
+FROM `Maker` mk
+JOIN `MakerModel` mm ON mk.`MakerID` = mm.`MakerID`
+JOIN `Model` md ON mm.`ModelID` = md.`ModelID`
+JOIN `Vehicle` v ON md.`ModelID` = v.`ModelID`
+JOIN `Sale` s ON v.`VIN` = s.`VIN`
+GROUP BY mk.`MakerID`, mk.`Name`
+ORDER BY ROUND(AVG(s.`SalePrice`), 2) DESC;
+
+-- Regional sales count and AVG price
+
+SELECT DISTINCT rg.`Name` AS 'Region' , COUNT(s.`SaleID`) as ' Number of Sales', CONCAT('$', FORMAT(AVG(s.`SalePrice`), 2)) AS 'Average Sale' 
+FROM `Maker` mk
+JOIN `MakerModel` mm ON mk.`MakerID` = mm.`MakerID`
+JOIN `Model` md ON mm.`ModelID` = md.`ModelID`
+JOIN `Vehicle` v ON md.`ModelID` = v.`ModelID`
+JOIN `Sale` s ON v.`VIN` = s.`VIN`
+JOIN `Locality` rg ON s.`LocalID` = rg.`LocalID`
+GROUP BY rg.`LocalID` , rg.`Name`
+ORDER BY ROUND(AVG(s.`SalePrice`), 2) DESC;
+
+-- Best performing GM Products
+
+SELECT mk.`Name` AS 'Make', md.`Name` AS 'Model', COUNT(s.`SaleID`) AS 'SOLD'
+FROM `Group` g
+JOIN `Maker` mk ON g.`GroupID` = mk.`GroupId`
+JOIN `MakerModel` mm ON mk.`MakerID` = mm.`MakerID`
+JOIN `Model` md ON mm.`ModelID` = md.`ModelID`
+JOIN `Vehicle` v ON md.`ModelID` = v.`ModelID`
+JOIN `Sale` s ON v.`VIN` = s.`VIN`
+WHERE g.`Name` = 'General Motors'
+GROUP BY md.`ModelID`, mk.`Name`
+ORDER BY COUNT(s.`SaleID`) DESC;
